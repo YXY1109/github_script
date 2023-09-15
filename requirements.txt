@@ -1,0 +1,4 @@
+requests==2.26.0
+httpx==0.25.0
+fake-useragent==1.2.1
+PyExecJS==1.5.1
