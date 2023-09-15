@@ -1,11 +1,11 @@
 个人爬虫
 ===========================
 
-### 七麦数据网 - https://www.qimai.cn/rank
+### 七麦数据网 - https://www.qimai.cn
 
 | Author | yxy1109           |
-|--------|-------------------
-| Email  | 1049598673@qq.com 
+|--------|-------------------|
+| Email  | 1049598673@qq.com |
 
 ****
 
@@ -25,32 +25,39 @@
 - QiMaiSpider_coroutine.py：协程版本
 
 ## 运行环境
+
 Version: Python3
+
 ## 安装依赖库
+
 ```
 pip3 install -r requirements.txt
 ```
 
 ## **运行截图**
+
 > - **查看APP下载量数据 - https://www.qimai.cn/andapp/baseinfo/appid/8932947/market/6 **<br><br>
-![APP下载量](files/pic/app_download.png)
+    ![APP下载量](files/pic/app_download.png)
 
 > - **运行截图**<br><br>
-![结果1](files/pic/结果1.png)
-![结果2](files/pic/结果2.png)
+    ![结果1](files/pic/结果1.png)
+    ![结果2](files/pic/结果2.png)
 
 ## 极目新闻 - https://www.ctdsb.net/
 
 ## 介绍
+
 ### 加密破解极目新闻的数据
+
 - http://yth.ctdsb.net/amc/client/listContentByColumn
 - Headers就是代码执行的结果
 - form-data参数根据实际情况填写，以后可能会变
 
 > - **运行截图**<br><br>
-![post_main_1](files/pic/jimu_postman_1.png)
-![post_main_2](files/pic/jimu_postman_2.png)
+    ![post_main_1](files/pic/jimu_postman_1.png)
+    ![post_main_2](files/pic/jimu_postman_2.png)
 
 ## **总结**
+
 > **最后，如果你觉得这个项目不错或者对你有帮助，给个Star呗，也算是对我学习路上的一种鼓励！<br>
- 哈哈哈，感谢大家！笔芯~**
+哈哈哈，感谢大家！笔芯~**
