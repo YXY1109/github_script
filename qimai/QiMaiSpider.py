@@ -55,9 +55,9 @@ class QiMaiSpider(object):
             # print(f"execjs调用JS返回的analysis：{js_analysis}")
         return js_analysis
 
-    def get_proxy_ip(self):
+    def get_xun_proxy_ip(self):
         """
-        获取代理IP
+        获取代理IP，训代理跑路了
         http://www.xdaili.cn/api/yz?orderno=YZ20229220931NJlWlV
         10036/10038/10055   提取过快，请至少5秒提取一次
         10032   今日提取已达上限，请隔日提取或额外购买
@@ -75,10 +75,28 @@ class QiMaiSpider(object):
             if proxy_dict.get("ERRORCODE") == "10055":
                 print("睡眠5秒")
                 time.sleep(5)
-                return self.get_proxy_ip()
+                return self.get_xun_proxy_ip()
         except Exception as e:
             print(f"解析异常说明是正常返回IP，直接返回：{e}")
             return proxy_ip
+
+    def get_sun_proxy_ip(self):
+        """
+        测试太阳代理
+        :return:
+        """
+        proxy_json = requests.get(
+            url="http://http.tiqu.alibabaapi.com/getip?num=10&type=2&pack=129405&port=1&lb=1&pb=45&regions=").text.strip()
+        print(f"proxy_json:{proxy_json}")
+        proxy_dict = json.loads(proxy_json)
+        if proxy_dict.get('code') == 113:
+            print(f"获取太阳代理失败,未加入白名单")
+            return self.get_sun_proxy_ip()
+        proxy_data = proxy_dict['data'][0]
+        proxy_ip = f"{proxy_data.get('ip')}:{proxy_data.get('port')}"
+
+        print(f"太阳代理IP:{proxy_ip}")
+        return proxy_ip
 
     def get_app_down_num(self, appid, market):
         """
@@ -94,7 +112,7 @@ class QiMaiSpider(object):
                 'market': market,
             }
             if not self.http_proxy_ip:
-                self.http_proxy_ip = "http://{}".format(self.get_proxy_ip())
+                self.http_proxy_ip = "http://{}".format(self.get_sun_proxy_ip())
             print(f"self.http_proxy_ip:{self.http_proxy_ip}")
             response = requests.get('https://api.qimai.cn/andapp/info', params=params, headers=self.headers,
                                     proxies={"http": self.http_proxy_ip, "https": self.http_proxy_ip}, timeout=20)
@@ -194,11 +212,15 @@ if __name__ == '__main__':
     """
     start = time.time()
     # 测试直播游仙和甘洛融媒
-    appid_dict_list = [{"appname": "直播游仙", "appid": 4435278}, {"appname": "甘洛融媒", "appid": 7764243},
-                       {"appname": "直播绵阳", "appid": 1014137}, {"appname": "美丽阿坝", "appid": 8932947}]
+    # appid_dict_list = [{"appname": "直播游仙", "appid": 4435278}, {"appname": "甘洛融媒", "appid": 7764243},
+    #                    {"appname": "直播绵阳", "appid": 1014137}, {"appname": "美丽阿坝", "appid": 8932947}]
+    appid_dict_list = [{"appname": "直播游仙", "appid": 4435278}]
     qi_mai = QiMaiSpider(appid_dict_list)
     qi_mai.save_data()
     qi_mai.upload_data()
+
+    # ip_port = qi_mai.get_sun_proxy_ip()
+    # print(f"太阳代理：{ip_port}")
 
     # 12秒
     print("耗时：{}秒".format(time.time() - start))
