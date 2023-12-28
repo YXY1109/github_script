@@ -4,6 +4,7 @@ import time
 import execjs
 import requests
 from fake_useragent import UserAgent
+from tqdm import tqdm
 
 
 class QiMaiSpider(object):
@@ -92,9 +93,12 @@ class QiMaiSpider(object):
         if proxy_dict.get('code') == 113:
             print(f"获取太阳代理失败,未加入白名单")
             return self.get_sun_proxy_ip()
+        elif proxy_dict.get('code') == 111:
+            time.sleep(3)
+            print(f"获取太阳代理太快，延迟3秒，错误码:{proxy_dict.get('code')}")
+            return self.get_sun_proxy_ip()
         proxy_data = proxy_dict['data'][0]
         proxy_ip = f"{proxy_data.get('ip')}:{proxy_data.get('port')}"
-
         print(f"太阳代理IP:{proxy_ip}")
         return proxy_ip
 
@@ -105,36 +109,34 @@ class QiMaiSpider(object):
         :param market:
         :return:
         """
-        try:
-            params = {
-                'analysis': self.get_analysis(appid, market),
-                'appid': appid,
-                'market': market,
-            }
-            if not self.http_proxy_ip:
-                self.http_proxy_ip = "http://{}".format(self.get_sun_proxy_ip())
-            print(f"self.http_proxy_ip:{self.http_proxy_ip}")
-            response = requests.get('https://api.qimai.cn/andapp/info', params=params, headers=self.headers,
-                                    proxies={"http": self.http_proxy_ip, "https": self.http_proxy_ip}, timeout=20)
-            print(f"response:{response}")
-            html = response.text
-            html = html.encode('utf-8').decode('raw_unicode_escape')
-            html_dict = json.loads(html)
-            print(f"2，返回数据dict:{html_dict}")
-            if html_dict.get("code") == 10000:
-                download_num = int(html_dict.get("appInfo").get("app_download_num"))
-                # print(f"下载量为：{download_num}")
-                return download_num
-            else:
-                # {'code': 10605, 'msg': '当前网络或账号异常，请半小时后重试', 'is_logout': 0, 'banip': '183.230.167.245'}
-                # 说明IP被ban，使用新的IP。先重置IP，再请求
-                print("IP被ban,先重置IP，再请求")
-                self.http_proxy_ip = ''
-                return self.get_app_down_num(appid, market)
-        except Exception as e:
-            print(f"获取下载量异常,get_app_down_num()：{e}")
+
+        params = {
+            'analysis': self.get_analysis(appid, market),
+            'appid': appid,
+            'market': market,
+        }
+        if not self.http_proxy_ip:
+            self.http_proxy_ip = "http://{}".format(self.get_sun_proxy_ip())
+        print(f"self.http_proxy_ip:{self.http_proxy_ip}")
+        response = requests.get('https://api.qimai.cn/andapp/info', params=params, headers=self.headers,
+                                proxies={"http": self.http_proxy_ip, "https": self.http_proxy_ip}, timeout=20)
+        print(f"response:{response}")
+        html = response.text
+        html = html.encode('utf-8').decode('raw_unicode_escape')
+        html_dict = json.loads(html)
+        print(f"2，返回数据dict:{html_dict}")
+        if html_dict.get("code") == 10000:
+            download_num = int(html_dict.get("appInfo").get("app_download_num"))
+            print(f"下载量为：{download_num}")
+            return download_num
+        elif html_dict.get("code") == 10605:
+            # {'code': 10605,'msg': '当前网络或账号异常，请半小时后重试', 'is_logout': 0, 'banip': '183.230.167.245'}
+            # 说明IP被ban，使用新的IP。先重置IP，再请求
+            print("IP被ban,先重置IP，再请求")
             self.http_proxy_ip = ''
             return self.get_app_down_num(appid, market)
+        else:
+            print("其他未知原因，暂时不处理")
 
     @staticmethod
     def get_channel_name(market):
@@ -170,19 +172,31 @@ class QiMaiSpider(object):
         for appid_dict in self.appid_list:
             app_id = appid_dict.get("appid")
             app_name = appid_dict.get("appname")
-            for market in self.market_list:
-                # 下载量
-                download_num = self.get_app_down_num(app_id, market)
-                # id转应用名称
-                channel_name = self.get_channel_name(market)
-                print(f"应用市场为：{channel_name}；应用名称：{app_name}；下載量：{download_num}；APPID：{app_id}")
-                print("-" * 100)
-                if download_num > 0:
-                    post_data = {"appname": app_name, "channelname": channel_name,
-                                 "log_time": time.strftime("%Y%m%d%H%M%S", time.localtime()),
-                                 "num": download_num,
-                                 "appid": app_id}
-                    self.data_list.append(post_data)
+            print("=" * 100)
+            print(f"开始处理爬虫应用的名称为：{app_name}")
+            print("=" * 100)
+            try:
+                for market in tqdm(self.market_list):
+                    # id转应用名称
+                    channel_name = self.get_channel_name(market)
+
+                    try:
+                        # 下载量
+                        download_num = self.get_app_down_num(app_id, market)
+                        print(f"应用市场为：{channel_name}；应用名称：{app_name}；下載量：{download_num}；APPID：{app_id}")
+                        print("-" * 100)
+                        if download_num > 0:
+                            post_data = {"appname": app_name, "channelname": channel_name,
+                                         "log_time": time.strftime("%Y%m%d%H%M%S", time.localtime()),
+                                         "num": download_num,
+                                         "appid": app_id}
+                            self.data_list.append(post_data)
+                    except Exception as e:
+                        print(f"处理爬虫应用的名称为：{app_name}，应用市场为：{channel_name}，异常：{e}")
+                        continue
+            except Exception as e:
+                print(f"处理爬虫应用的名称为：{app_name}，异常：{e}")
+                continue
         print(f"上报的数据：{self.data_list}")
 
     def upload_data(self):
