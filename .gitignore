@@ -1,3 +1,4 @@
 /venv/
 *.py[cod]
 .idea
+/wx_articles_click/files/WeChatSetup-3.9.8.25.exe
