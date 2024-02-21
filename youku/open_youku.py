@@ -286,6 +286,8 @@ def catch_ups_appinfo(url: str):
     # 获取精彩片段的url地址
     high_light_url = ""
 
+    # driver.log_types
+    # ['performance', 'browser', 'driver']
     log_list = driver.get_log('performance')
     # print(f"log_list:{log_list}")
     for log in log_list:
