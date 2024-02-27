@@ -60,6 +60,7 @@ def ocr_image(img_path):
                 else:
                     if may_article:
                         # todo OCR识别错误，导致数据异常
+                        # todo 数据问题，可以结合数据库处理
                         if ocr_text.startswith("阅读"):
                             print("-------------------结束")
                             # 获取当前文本两个x坐标的中间值
