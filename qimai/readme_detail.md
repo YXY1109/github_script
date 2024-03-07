@@ -43,20 +43,6 @@ pip3 install -r requirements.txt
     ![结果1](../files/pic/结果1.png)
     ![结果2](../files/pic/结果2.png)
 
-## 极目新闻 - https://www.ctdsb.net/
-
-## 介绍
-
-### 加密破解极目新闻的数据
-
-- http://yth.ctdsb.net/amc/client/listContentByColumn
-- Headers就是代码执行的结果
-- form-data参数根据实际情况填写，以后可能会变
-
-> - **运行截图**<br><br>
-    ![post_main_1](../files/pic/jimu_postman_1.png)
-    ![post_main_2](../files/pic/jimu_postman_2.png)
-
 ## **总结**
 
 > **最后，如果你觉得这个项目不错或者对你有帮助，给个Star呗，也算是对我学习路上的一种鼓励！<br>
