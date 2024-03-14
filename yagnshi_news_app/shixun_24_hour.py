@@ -1,12 +1,21 @@
 import requests
 
+"""1
+'x-emas-gw-c-traceid': 'ZfKPQc3Udx0DAKxoKzKNhk1v1710423379154007915392',
+'crequestid': '1710423380209539278',
+'cclientrequestid': 'MOhBtXnlvXWd3o0Wr9z1KEmTmdwv/rlVyesNC06ceKLqUKAhu3XGpJcJXqHLgIxjHPSpLhKjDlN5SEQvsfFPfeyg0UCvwbPLNAe+SjhB/EBlV41KI6f2/UnXb+T6NGwe',
+'x-emas-gw-sign': '87f131014a2b933d1b1a82c28db639d3d9823b4165e3fbb65674111a1ac0daaa',
+'x-emas-gw-t': '1710423379',
+'transfer_info': '相同部分-3aDUpgEgACgAGhgxMDI5MGM2MTY3NjBhYzFkMDhkMDAwMWIgADAAOgIIAUgBUhgxMDI5MGM2MTY3NjBhYzFkMDhkMDAwMWJiGggBEPr1y68GGK7098OIzv-相同部分',
+'recoid': '10290c616760ac1d08d0001b',
+"""
+
 """headers，不同的地方
 x-emas-gw-c-traceid
 crequestid
 cclientrequestid
 x-emas-gw-sign
 x-emas-gw-t
-
 """
 headers = {
     'appVersion': '9.16.0',
@@ -62,7 +71,7 @@ headers = {
 }
 
 """params，不同的地方
-x-emas-gw-t
+transfer_info
 recoid
 """
 params = {

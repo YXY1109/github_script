@@ -1,6 +1,8 @@
-# 当前毫秒时间戳
 import time
 
-current_timestamp = int(time.time() * 1000)
+# 当前时间戳
+current_timestamp = int(time.time())
 # 1710422778790
+# 1710423379
+# 1710424887
 print(f"当前时间戳：{current_timestamp}")
