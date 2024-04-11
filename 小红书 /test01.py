@@ -1,4 +1,7 @@
+import base64
 import json
+from datetime import datetime
+
 import execjs
 import requests
 
@@ -34,7 +37,10 @@ with open('vm.js', 'r', encoding='utf-8') as fp:
     js_code = fp.read()
     result = execjs.compile(js_code).call('get_encrypt', (c, json_data))
     print(result)
-    headers['x-s'] = result
+    headers['X-S'] = result
+    # base64
+    # headers['X-S-Common'] = base64.b64encode(result.encode(encoding='utf-8')).decode()
+    # headers['X-T'] = str(int(datetime.now().timestamp() * 1000))
     data = json.dumps(json_data, separators=(',', ':'))
     response = requests.post('https://edith.xiaohongshu.com/api/sns/web/v1/homefeed', cookies=cookies, headers=headers,
                              data=data)
