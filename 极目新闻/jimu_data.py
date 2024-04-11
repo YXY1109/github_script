@@ -1,7 +1,7 @@
 import requests
 from fake_useragent import UserAgent
 
-from jimu.jimu_token import jimu_token_time
+from 极目新闻.jimu_token import jimu_token_time
 
 request_time, request_token = jimu_token_time()
 

@@ -1,7 +1,0 @@
-pyautogui==0.9.54
-numpy==1.26.3
-pyperclip==1.8.2
-peewee==3.17.0
-pywin32==306
-paddleocr==2.7.0.3
-pymysql==1.1.0

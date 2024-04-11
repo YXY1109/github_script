@@ -4,7 +4,7 @@ import execjs
 import requests
 from fake_useragent import UserAgent
 
-from fujian_trade_center.jiemi_response import decrypt_data
+from 福建省公共资源交易电子公众服务平台.jiemi_response import decrypt_data
 
 # 当前时间戳
 ts = int(datetime.now().timestamp() * 1000)
