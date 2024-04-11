@@ -8,6 +8,9 @@ https://bz.zzzmh.cn/index
 
 ~~~
 https://www.bilibili.com/video/BV1t84y1Z7zs/?spm_id_from=333.788&vd_source=4cff3e6a8562f094b3c22779df5e9679
+
+https://www.bilibili.com/video/BV17F411X71n/?spm_id_from=333.337.search-card.all.click
+https://www.bilibili.com/video/BV17F411X71n/?spm_id_from=333.999.0.0&vd_source=4cff3e6a8562f094b3c22779df5e9679
 ~~~
 
 ## hook脚本
