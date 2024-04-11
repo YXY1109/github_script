@@ -537,22 +537,23 @@ try {
     )();
 
     function get_headers() {
+        //todo 需要修改
         var json_data = {
-            "cursor_score": "",
-            "num": 31,
-            "refresh_type": 1,
-            "note_index": 24,
-            "unread_begin_note_id": "",
-            "unread_end_note_id": "",
-            "unread_note_count": 0,
-            "category": "homefeed.career_v3",
-            "search_key": "",
-            "need_num": 6,
-            "image_formats": [
-                "jpg",
-                "webp",
-                "avif"
-            ]
+            'cursor_score': '',
+            'num': 39,
+            'refresh_type': 1,
+            'note_index': 35,
+            'unread_begin_note_id': '',
+            'unread_end_note_id': '',
+            'unread_note_count': 0,
+            'category': 'homefeed.career_v3',
+            'search_key': '',
+            'need_num': 14,
+            'image_formats': [
+                'jpg',
+                'webp',
+                'avif',
+            ],
         }
 
         var part_url = '/api/sns/web/v1/homefeed'
