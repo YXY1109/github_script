@@ -1,3 +1,5 @@
+# coding:utf-8
+
 import execjs
 import requests
 from fake_useragent import UserAgent
