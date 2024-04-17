@@ -1,18 +1,15 @@
-var vm= require("vm2")
+var vm = require("vm2")
 var fs = require('fs')
-const {VM,VMScript} = vm
+const {VM, VMScript} = vm
 var myvm = new VM()
 
 var code = fs.readFileSync('enviroment.js')
-// code += fs.readFileSync('code.js')
-code += fs.readFileSync('code_self.js')
-debugger;
+code += fs.readFileSync('code.js')
 
-function get_encrypt(){
+function get_encrypt() {
     code += `;;;get_headers();;;`
     var res = myvm.run(code)
-    console.log(res)
+    // console.log(res)
     return res
 }
-// get_encrypt();
-debugger;
+

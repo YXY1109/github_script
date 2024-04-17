@@ -7,7 +7,8 @@ import requests
 # todo,需要替换值才能获取到数据
 # 第一步：获取cookie,替换：cookie_input
 # 第二步，enviroment.js，868行，替换a1的值
-cookie_input = 'abRequestId=cea3d768-2b65-518a-bb05-d4ff31199fa6; a1=18ec81b444crv1yxk4qifdk2kixzf9hjw6np9u4lu30000852904; webId=99b33fb749cdbbf7986d24615b787288; gid=yYdSYyD40yEjyYdSYyD44K744SFhyvCT4A3iI17fTJT3CUq8uijxVj888Y2Jj848JqDKDYqD; xsecappid=xhs-pc-web; web_session=030037a125da5339c739fea96f214a39998284; webBuild=4.12.3; websectiga=3633fe24d49c7dd0eb923edc8205740f10fdb18b25d424d2a2322c6196d2a4ad; sec_poison_id=b35cf058-b787-4f92-b327-04b14f1d1c01; unread={%22ub%22:%2265ff2336000000001302559b%22%2C%22ue%22:%226604eb04000000000d00dc9e%22%2C%22uc%22:34}'
+cookie_input = 'abRequestId=cea3d768-2b65-518a-bb05-d4ff31199fa6; a1=18ec81b444crv1yxk4qifdk2kixzf9hjw6np9u4lu30000852904; webId=99b33fb749cdbbf7986d24615b787288; gid=yYdSYyD40yEjyYdSYyD44K744SFhyvCT4A3iI17fTJT3CUq8uijxVj888Y2Jj848JqDKDYqD; web_session=030037a125da5339c739fea96f214a39998284; webBuild=4.12.3; unread={%22ub%22:%2265ff2336000000001302559b%22%2C%22ue%22:%226604eb04000000000d00dc9e%22%2C%22uc%22:34}; acw_tc=443b0c576c341e388e108ee5f48e3b5636f255ab48879ac268b0b90bc63bf56e; websectiga=9730ffafd96f2d09dc024760e253af6ab1feb0002827740b95a255ddf6847fc8; sec_poison_id=1be4f91b-6ad7-4738-99b7-4e132ef4bb7e; xsecappid=xhs-pc-web'
+
 
 keys_to_extract = ['a1', 'web_session']
 pattern = re.compile(r';\s*({})=(.*?)(?:;|$)'.format('|'.join(keys_to_extract)))
